@@ -1,0 +1,18 @@
+{
+  "name": "scopefragger/laravel-socialy",
+  "description": "Laravel Socialy
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Mark jones",
+      "email": "mark@arcade247.co.uk"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Scopefragger\\LaravelSocialy\\": "src"
+    }
+  },
+  "minimum-stability": "dev",
+  "require": {}
+}
