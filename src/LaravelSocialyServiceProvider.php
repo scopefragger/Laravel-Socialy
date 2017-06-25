@@ -6,6 +6,15 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use Scopefragger\LaravelSocialy\Commands\FetchTweets;
 use Scopefragger\LaravelSocialy\Commands\PurgeSocial;
 
+/**
+ * Class LaravelSocialyServiceProvider
+ * @category Awesomeness
+ * @package  Larave-Socialy
+ * @author   Mark Jones <mark@kitkode.co.uk>
+ * @license  MIT License
+ * @version  1.0.1
+ * @link     https://github.com/scopefragger/Laravel-Socialy
+ */
 class LaravelSocialyServiceProvider extends ServiceProvider
 {
     public function boot()

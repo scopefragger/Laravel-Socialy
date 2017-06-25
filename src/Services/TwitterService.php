@@ -3,7 +3,16 @@ namespace Scopefragger\LaravelSocialy\Services;
 
 use Scopefragger\LaravelSocialy\Models\Social;
 
-
+/**
+ * Class TwitterService
+ *
+ * @category Awesomeness
+ * @package  Larave-Socialy
+ * @author   Mark Jones <mark@kitkode.co.uk>
+ * @license  MIT License
+ * @version  1.0.1
+ * @link     https://github.com/scopefragger/Laravel-Socialy
+ */
 class TwitterService
 {
     private $user;

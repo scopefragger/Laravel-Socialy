@@ -3,6 +3,16 @@ namespace Scopefragger\LaravelSocialy\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Social
+ *
+ * @category Awesomeness
+ * @package  Larave-Socialy
+ * @author   Mark Jones <mark@kitkode.co.uk>
+ * @license  MIT License
+ * @version  1.0.1
+ * @link     https://github.com/scopefragger/Laravel-Socialy
+ */
 class Social extends Model
 {
     /** @var string - Tabel Name */
