@@ -8,6 +8,7 @@ use Scopefragger\LaravelSocialy\Commands\PurgeSocial;
 
 /**
  * Class LaravelSocialyServiceProvider
+ *
  * @category Awesomeness
  * @package  Larave-Socialy
  * @author   Mark Jones <mark@kitkode.co.uk>
@@ -19,6 +20,7 @@ class LaravelSocialyServiceProvider extends ServiceProvider
 {
     public function boot()
     {
+
         $this->loadMigrationsFrom(__DIR__ . '/Migrations');
         if ($this->app->runningInConsole()) {
             $this->commands([
@@ -26,6 +28,7 @@ class LaravelSocialyServiceProvider extends ServiceProvider
                 PurgeSocial::Class
             ]);
         }
+
         $this->publishes([
             __DIR__ . '/Config/config.php' => config_path('socialy.php'),
         ], 'socialy');
