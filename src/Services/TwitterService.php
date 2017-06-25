@@ -1,4 +1,5 @@
 <?php
+
 namespace Scopefragger\LaravelSocialy\Services;
 
 use Scopefragger\LaravelSocialy\Models\Social;
@@ -15,10 +16,18 @@ use Scopefragger\LaravelSocialy\Models\Social;
  */
 class TwitterService
 {
+    /** @var  - The user to collect the tweets from */
     private $user;
+
+    /** @var  - Cunmber of tweets to fetch */
     private $fetch;
+
+    /** @var  - The twitter object */
     private $twitter;
 
+    /**
+     * TwitterService constructor.
+     */
     public function __construct()
     {
         $this->user = env('TWITTER_USER_NAME');
@@ -55,6 +64,11 @@ class TwitterService
         }
     }
 
+    /**
+     * Collects settings from env();
+     *
+     * @return array
+     */
     public function settings()
     {
         $settings = [
@@ -66,6 +80,16 @@ class TwitterService
         return $settings;
     }
 
+    /**
+     * Fetches the Tweets
+     *
+     * Collects all of the most recent tweets for the given
+     * user,  using the API details provided.
+     *
+     * @param $param
+     * @param $url
+     * @return string
+     */
     public function fetch($param, $url)
     {
         try {
@@ -75,6 +99,11 @@ class TwitterService
         }
     }
 
+    /**
+     * Loops Though Data and process
+     *
+     * @param $data
+     */
     public function process($data)
     {
         foreach ($data as $value) {
@@ -82,9 +111,16 @@ class TwitterService
         }
     }
 
+    /**
+     * Saves new / updates old tweet
+     *
+     * Accepts a single json entity from the twitter API
+     * and saves is as either a new or updates an old tweet
+     *
+     * @param $data
+     */
     public function save($data)
     {
-
         if (!empty($data->id)) {
             $social = Social::firstOrCreate(['fkey' => $data->id]);
             $social->fkey = $data->id;
@@ -95,10 +131,14 @@ class TwitterService
             $social->user_avatar = $data->user->profile_image_url;
             $social->save();
         }
-
-
     }
 
+    /**
+     * Clenses Twitter JSON
+     *
+     * @param $data
+     * @return mixed
+     */
     public function clense($data)
     {
         $data = json_decode($data);
