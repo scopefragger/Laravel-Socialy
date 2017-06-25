@@ -1,6 +1,6 @@
 {
   "name": "scopefragger/laravel-socialy",
-  "description": "Laravel Socialy
+  "description": "Laravel Socialy",
   "license": "MIT",
   "authors": [
     {
@@ -14,5 +14,8 @@
     }
   },
   "minimum-stability": "dev",
-  "require": {}
+  "require": {
+    "j7mbo/twitter-api-php": "dev-master",
+    "cosenary/instagram": "dev-master"
+  }
 }

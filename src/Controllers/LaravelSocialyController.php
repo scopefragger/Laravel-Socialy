@@ -8,4 +8,3 @@ class LaravelSocialyController extends Controller
 
 }
 
-https://github.com/scopefragger/Laravel-Socialy.git
