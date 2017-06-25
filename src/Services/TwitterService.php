@@ -38,9 +38,14 @@ class TwitterService
         $this->authorise();
         $data = $this->fetch($param, $url);
         $data = $this->clense($data);
-        $data = $this->process($data);
+        $this->process($data);
     }
 
+    /**
+     * Creates OAuth Token handshake with twitter
+     *
+     * @return void
+     */
     public function authorise()
     {
         try {
@@ -72,7 +77,7 @@ class TwitterService
 
     public function process($data)
     {
-        foreach ($data as $key => $value) {
+        foreach ($data as $value) {
             $this->save($value);
         }
     }
