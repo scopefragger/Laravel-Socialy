@@ -2,10 +2,8 @@
 
 namespace Scopefragger\LaravelSocialy\Commands;
 
-use App\User;
 use App\DripEmailer;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
 use Scopefragger\LaravelSocialy\Services\TwitterService;
 
 /**

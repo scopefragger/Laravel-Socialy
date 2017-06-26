@@ -1,13 +1,11 @@
 <?php
 
-namespace E3Creative\LaravelSocialy\Commands;
+namespace Scopefragger\LaravelSocialy\Commands;
 
-use CreateSocial;
-use E3Creative\FbFeed\Migrations\CreateFixtures;
-use E3Creative\FbFeed\Migrations\CreatePlayers;
-use E3Creative\FbFeed\Migrations\CreatePositions;
 use Illuminate\Console\Command;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Scopefragger\LaravelSocialy\Migrations\CreateSocial;
 
 /**
  * Class Install
@@ -45,8 +43,19 @@ class Install extends Command
     public function fire()
     {
         if (!Schema::hasTable('laravel_socialy')) {
-            $players = new CreateSocial();
-            $players->up();
+            Schema::create('laravel_socialy', function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('fkey')->nullable();
+                $table->string('social_site')->default('custom');
+                $table->string('message')->nullable();
+                $table->string('user_avatar')->nullable();
+                $table->string('user_handle')->nullable();
+                $table->string('user_formal_name')->nullable();
+                $table->boolean('published')->nullable();
+                $table->datetime('datetime')->nullable();
+                $table->softDeletes();
+                $table->timestamps();
+            });
         }
 
     }

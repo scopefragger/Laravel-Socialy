@@ -6,6 +6,7 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use Illuminate\Routing\Router;
 use Scopefragger\LaravelSocialy\Commands\FetchTweets;
 use Scopefragger\LaravelSocialy\Commands\PurgeSocial;
+use Scopefragger\LaravelSocialy\Commands\Install;
 
 /**
  * Class LaravelSocialyServiceProvider

@@ -3,6 +3,7 @@ namespace Scopefragger\LaravelSocialy\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 
 /**
@@ -33,6 +34,6 @@ class PurgeSocial extends Command
      */
     public function handle()
     {
-        DB::table('laravel_socialy')->truncate();
+        Schema::drop('laravel_socialy');
     }
 }

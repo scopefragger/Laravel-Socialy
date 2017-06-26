@@ -1,4 +1,5 @@
 <?php
+namespace Scopefragger\LaravelSocialy\Migrations;
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -27,7 +28,7 @@ class CreateSocial extends Migration
         Schema::create('laravel_socialy', function (Blueprint $table) {
             $table->increments('id');
             $table->string('fkey')->nullable();
-            $table->string('social_site')->default('custom');
+            $table->string('social_site')->defalt('custom');
             $table->string('message')->nullable();
             $table->string('user_avatar')->nullable();
             $table->string('user_handle')->nullable();

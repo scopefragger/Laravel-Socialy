@@ -1,4 +1,5 @@
 <?php
+
 namespace Scopefragger\LaravelSocialy\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -23,7 +24,13 @@ class Social extends Model
 
     /** @var array - List of values that can be mass assigned */
     protected $fillable = [
-        'message', 'social_site', 'user_avatar', 'user_handle', 'user_formal_name', 'published', 'datetime'
+        'message',
+        'social_site',
+        'user_avatar',
+        'user_handle',
+        'user_formal_name',
+        'published',
+        'datetime'
     ];
 
     /**

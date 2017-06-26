@@ -1,7 +1,7 @@
 <?php
 namespace Scopefragger\LaravelSocialy\Services;
 
-use Mockery\CountValidator\Exception;
+use Exception;
 
 /**
  * Twitter-API-PHP : Simple PHP wrapper for the v1.1 API
