@@ -100,14 +100,29 @@ class TwitterService
     }
 
     /**
+     * Clenses Twitter JSON
+     *
+     * @param $data
+     * @return mixed
+     */
+    public function clense($data)
+    {
+        $data = json_decode($data);
+        return $data;
+    }
+
+
+    /**
      * Loops Though Data and process
      *
      * @param $data
      */
     public function process($data)
     {
-        foreach ($data as $value) {
-            $this->save($value);
+        if (!empty($data)) {
+            foreach ($data as $value) {
+                $this->save($value);
+            }
         }
     }
 
@@ -122,27 +137,35 @@ class TwitterService
     public function save($data)
     {
         if (!empty($data->id)) {
+
+            /** Check if record exists else make one */
             $social = Social::firstOrCreate(['fkey' => $data->id]);
             $social->fkey = $data->id;
             $social->social_site = 'twitter';
-            $social->message = $data->text;
-            $social->user_handle = $data->user->screen_name;
-            $social->user_formal_name = $data->user->name;
-            $social->user_avatar = $data->user->profile_image_url;
+
+            /** Save Twitter Message */
+            if (!empty($data->text)) {
+                $social->message = $data->text;
+            }
+
+            /** Save there username `@JohnDoh` */
+            if (!empty($data->user->screen_name)) {
+                $social->user_handle = $data->user->screen_name;
+            }
+
+            /** Save there full name `John Doh` */
+            if (!empty($data->user->name)) {
+                $social->user_formal_name = $data->user->name;
+            }
+
+            /** save the url of there profile image */
+            if (!empty($data->user->profile_image_url)) {
+                $social->user_avatar = $data->user->profile_image_url;
+            }
+
+            /** save the object */
             $social->save();
         }
-    }
-
-    /**
-     * Clenses Twitter JSON
-     *
-     * @param $data
-     * @return mixed
-     */
-    public function clense($data)
-    {
-        $data = json_decode($data);
-        return $data;
     }
 
 }

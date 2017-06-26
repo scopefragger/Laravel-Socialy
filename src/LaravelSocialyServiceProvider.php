@@ -20,15 +20,53 @@ class LaravelSocialyServiceProvider extends ServiceProvider
 {
     public function boot()
     {
+        $this->config();
+        $this->commands();
+        $this->migrations();
+    }
 
+    /**
+     * Registers migrations with the application
+     *
+     * Registers all migration files within the ./Migrations
+     * Dir of this package with the application for processing
+     * next time artisan migrate is ran.
+     *
+     * @return void
+     */
+    private function migrations()
+    {
         $this->loadMigrationsFrom(__DIR__ . '/Migrations');
+    }
+
+    /**
+     * Registers commands with application
+     *
+     * Binds artisan commands to the application,  only when
+     * the user is accessing the code via the artisan CLI
+     *
+     * return void
+     */
+    private function commands()
+    {
         if ($this->app->runningInConsole()) {
             $this->commands([
                 FetchTweets::Class,
                 PurgeSocial::Class
             ]);
         }
+    }
 
+    /**
+     * Registers a custom config with application
+     *
+     * Provides the abuilty to create and manage a custom local
+     * config for the package.
+     *
+     * return void
+     */
+    private function config()
+    {
         $this->publishes([
             __DIR__ . '/Config/config.php' => config_path('socialy.php'),
         ], 'socialy');
