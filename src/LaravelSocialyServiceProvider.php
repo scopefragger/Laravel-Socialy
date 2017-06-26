@@ -3,6 +3,7 @@
 namespace Scopefragger\LaravelSocialy;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Routing\Router;
 use Scopefragger\LaravelSocialy\Commands\FetchTweets;
 use Scopefragger\LaravelSocialy\Commands\PurgeSocial;
 
@@ -18,10 +19,10 @@ use Scopefragger\LaravelSocialy\Commands\PurgeSocial;
  */
 class LaravelSocialyServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function boot(Router $router)
     {
         $this->config();
-        $this->commands();
+        $this->command();
         $this->migrations();
     }
 
@@ -34,9 +35,11 @@ class LaravelSocialyServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    private function migrations()
+    public function migrations()
     {
-        $this->loadMigrationsFrom(__DIR__ . '/Migrations');
+        if (method_exists('this', 'loadMigrationsFrom')) {
+            $this->loadMigrationsFrom(__DIR__ . '/Migrations');
+        }
     }
 
     /**
@@ -47,7 +50,7 @@ class LaravelSocialyServiceProvider extends ServiceProvider
      *
      * return void
      */
-    private function commands()
+    public function command()
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
@@ -65,7 +68,7 @@ class LaravelSocialyServiceProvider extends ServiceProvider
      *
      * return void
      */
-    private function config()
+    public function config()
     {
         $this->publishes([
             __DIR__ . '/Config/config.php' => config_path('socialy.php'),
