@@ -11,5 +11,10 @@
   "minimum-stability": "dev",
   "require": {
     "cosenary/instagram": "dev-master"
+  },
+    "autoload": {
+    "psr-4": {
+      "Scopefragger\\LaravelSocialy\\": "src/"
+    }
   }
 }
