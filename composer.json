@@ -8,14 +8,8 @@
       "email": "mark@arcade247.co.uk"
     }
   ],
-  "autoload": {
-    "psr-4": {
-      "Scopefragger\\LaravelSocialy\\": "src"
-    }
-  },
   "minimum-stability": "dev",
   "require": {
-    "j7mbo/twitter-api-php": "dev-master",
     "cosenary/instagram": "dev-master"
   }
 }
