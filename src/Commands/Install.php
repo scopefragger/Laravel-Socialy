@@ -46,7 +46,7 @@ class Install extends Command
             Schema::create('laravel_socialy', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('fkey')->nullable();
-                $table->string('social_site')->default('custom');
+                $table->string('social_site')->defa('custom');
                 $table->string('message')->nullable();
                 $table->string('user_avatar')->nullable();
                 $table->string('user_handle')->nullable();

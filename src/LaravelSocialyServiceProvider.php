@@ -4,6 +4,7 @@ namespace Scopefragger\LaravelSocialy;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Routing\Router;
+use Scopefragger\LaravelSocialy\Commands\FetchInstergram;
 use Scopefragger\LaravelSocialy\Commands\FetchTweets;
 use Scopefragger\LaravelSocialy\Commands\PurgeSocial;
 use Scopefragger\LaravelSocialy\Commands\Install;
@@ -56,6 +57,7 @@ class LaravelSocialyServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 FetchTweets::Class,
+                FetchInstergram::Class,
                 Install::Class,
                 PurgeSocial::Class
             ]);
