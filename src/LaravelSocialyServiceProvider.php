@@ -55,6 +55,7 @@ class LaravelSocialyServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 FetchTweets::Class,
+                Install::Class,
                 PurgeSocial::Class
             ]);
         }
