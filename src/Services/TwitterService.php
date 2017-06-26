@@ -69,7 +69,7 @@ class TwitterService
      *
      * @return array
      */
-    public function settings()
+    private function settings()
     {
         $settings = [
             'oauth_access_token' => env('TWITTER_TOKEN'),
