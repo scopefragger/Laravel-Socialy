@@ -10,7 +10,9 @@
   ],
   "minimum-stability": "dev",
   "require": {
-    "cosenary/instagram": "dev-master"
+    "cosenary/instagram": "dev-master",
+    "facebook/graph-sdk": "dev-master"
+
   },
     "autoload": {
     "psr-4": {

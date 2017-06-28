@@ -1,6 +1,6 @@
 <?php
 
-namespace Scopefragger\LaravelSocialy\Services;
+namespace Scopefragger\LaravelSocialy\Services\Api;
 
 /**
  * Instagram API class
@@ -14,7 +14,7 @@ namespace Scopefragger\LaravelSocialy\Services;
  * @version 2.2
  * @license BSD http://www.opensource.org/licenses/bsd-license.php
  */
-class InstagramAPIExchange
+class InstagramAPI
 {
     /**
      * The API base URL.

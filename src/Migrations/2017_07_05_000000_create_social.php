@@ -31,6 +31,7 @@ class CreateSocial extends Migration
             $table->string('social_site')->defalt('custom');
             $table->string('message')->nullable();
             $table->string('user_avatar')->nullable();
+            $table->string('post_media')->nullable();
             $table->string('user_handle')->nullable();
             $table->string('user_formal_name')->nullable();
             $table->boolean('published')->nullable();

@@ -2,7 +2,9 @@
 
 namespace Scopefragger\LaravelSocialy\Services;
 
+use League\Flysystem\Exception;
 use Scopefragger\LaravelSocialy\Models\Social;
+use Scopefragger\LaravelSocialy\Services\Api\TwitterAPI;
 
 /**
  * Class TwitterService
@@ -14,16 +16,10 @@ use Scopefragger\LaravelSocialy\Models\Social;
  * @version  1.0.1
  * @link     https://github.com/scopefragger/Laravel-Socialy
  */
-class TwitterService
+class TwitterService extends SocialService
 {
-    /** @var  - The user to collect the tweets from */
-    private $user;
-
-    /** @var  - Cunmber of tweets to fetch */
-    private $fetch;
-
-    /** @var  - The twitter object */
-    private $twitter;
+    /** @vars $url - Constructed URL */
+    private $url;
 
     /**
      * TwitterService constructor.
@@ -32,23 +28,11 @@ class TwitterService
     {
         $this->user = env('TWITTER_USER_NAME');
         $this->fetch = env('TWITTER_DEFAULT_FETCH_COUNT', '5');
+
+        $this->url = 'https://api.twitter.com/1.1/statuses/user_timeline.json';
+        $this->param = '?screen_name=' . $this->user . '&count=' . $this->fetch;
     }
 
-    /**
-     * Main function for the Twitter Class
-     * Fetches tweets
-     * ------------------------------------
-     * @return mixed
-     */
-    public function get()
-    {
-        $url = 'https://api.twitter.com/1.1/statuses/user_timeline.json';
-        $param = '?screen_name=' . $this->user . '&count=' . $this->fetch;
-        $this->authorise();
-        $data = $this->fetch($param, $url);
-        $data = $this->clense($data);
-        $this->process($data);
-    }
 
     /**
      * Creates OAuth Token handshake with twitter
@@ -58,7 +42,7 @@ class TwitterService
     public function authorise()
     {
         try {
-            $this->twitter = new TwitterAPIExchange($this->settings());
+            $this->api = new TwitterAPI($this->settings());
         } catch (Exception $e) {
             return $e->getTraceAsString();
         }
@@ -90,37 +74,36 @@ class TwitterService
      * @param $url
      * @return string
      */
-    public function fetch($param, $url)
+    public function fetch()
     {
         try {
-            return $this->twitter->setGetfield($param)->buildOauth($url, 'GET')->performRequest();
+            return $this->data = $this->api->setGetfield($this->param)->buildOauth($this->url, 'GET')->performRequest();
         } catch (Exception $e) {
             return $e->getTraceAsString();
         }
     }
 
     /**
-     * Clenses Twitter JSON
+     * cleans Twitter JSON
      *
-     * @param $data
      * @return mixed
      */
-    public function clense($data)
+    public function clean()
     {
-        $data = json_decode($data);
-        return $data;
+        $this->data = json_decode($this->data);
+        return $this->data;
     }
 
 
     /**
      * Loops Though Data and process
      *
-     * @param $data
+     * @return void
      */
-    public function process($data)
+    public function process()
     {
-        if (!empty($data)) {
-            foreach ($data as $value) {
+        if (!empty($this->data)) {
+            foreach ($this->data as $value) {
                 $this->save($value);
             }
         }
@@ -137,6 +120,8 @@ class TwitterService
     public function save($data)
     {
         if (!empty($data->id)) {
+
+            echo "Imported Tweet " . $data->id . "\n";
 
             /** Check if record exists else make one */
             $social = Social::firstOrCreate(['fkey' => $data->id]);

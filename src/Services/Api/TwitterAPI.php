@@ -1,5 +1,5 @@
 <?php
-namespace Scopefragger\LaravelSocialy\Services;
+namespace Scopefragger\LaravelSocialy\Services\Api;
 
 use Exception;
 
@@ -15,7 +15,7 @@ use Exception;
  * @version  1.0.4
  * @link     http://github.com/j7mbo/twitter-api-php
  */
-class TwitterAPIExchange
+class TwitterAPI
 {
     /**
      * @var string

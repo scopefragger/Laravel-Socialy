@@ -2,52 +2,88 @@
 
 namespace Scopefragger\LaravelSocialy\Services;
 
-use Scopefragger\LaravelSocialy\Services\InstagramAPIExchange;
+use Exception;
+use Scopefragger\LaravelSocialy\Services\Api\InstagramAPI;
 use Scopefragger\LaravelSocialy\Models\Social;
 
-class InstagramService
+/**
+ * Class InstagramService
+ *
+ * @category Awesomeness
+ * @package  Larave-Socialy
+ * @author   Mark Jones <mark@kitkode.co.uk>
+ * @license  MIT License
+ * @version  1.0.1
+ * @link     https://github.com/scopefragger/Laravel-Socialy
+ */
+class InstagramService extends SocialService
 {
-    private $user;
-
-    private $fetch = 5;
-
-    private $instagram;
-
+    /**
+     * Create new InstagramService object
+     */
     public function __construct()
     {
         $this->user = env('INSTAGRAM_USER_NAME');
         $this->fetch = env('INSTAGRAM_DEFAULT_FETCH_COUNT', '5');
     }
 
-    public function get()
+    /**
+     * Creates OAuth Token handshake with Instagram
+     *
+     * @return void
+     */
+    public function authorise()
     {
-        $this->instagram = new InstagramAPIExchange(env('INSTAGRAM_API_KEY'));
-        $this->instagram->setAccessToken(env('INSTAGRAM_ACCESS_TOKEN'));
-        $data = $this->fetch();
-        $data = $this->process($data->data);
+        $this->api = new InstagramAPI(env('INSTAGRAM_API_KEY'));
+        $this->api->setAccessToken(env('INSTAGRAM_ACCESS_TOKEN'));
     }
 
+    /**
+     * Fetches the Instagram posts
+     *
+     * Collects all of the most recent posts for the given
+     * user,  using the API details provided.
+     *
+     * @return string
+     */
     public function fetch()
     {
         try {
-            return $this->instagram->getUserMedia('self', 5);
+            return $this->data = $this->api->getUserMedia('self', 5);
         } catch (Exception $e) {
             return $e->getTraceAsString();
         }
     }
 
-    public function process($data)
+
+    /**
+     * cleans Instagram API Data
+     *
+     * @return mixed
+     */
+    public function clean()
     {
-        if (!empty($data)) {
-            foreach ($data as $value) {
+
+    }
+
+    public function process()
+    {
+        if (!empty($this->data->data)) {
+            foreach ($this->data->data as $value) {
                 $this->save($value);
             }
+        } else {
+            throw new Exception('No data passed to process');
         }
     }
 
     public function save($data)
     {
+
         if (!empty($data->id)) {
+
+            echo "Imported Instagram Post " . $data->id . "\n";
+
 
             /** Check if record exists else make one */
             $social = Social::firstOrCreate(['fkey' => $data->id]);
@@ -74,9 +110,12 @@ class InstagramService
                 $social->user_avatar = $data->user->profile_image_url;
             }
 
+            //@TODO SAVE MEDIA IMAGE
+
             /** save the object */
             $social->save();
+
+
         }
     }
-
 }
