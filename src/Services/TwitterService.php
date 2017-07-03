@@ -153,4 +153,10 @@ class TwitterService extends SocialService
         }
     }
 
+    public function rebuildUrl()
+    {
+        $this->url = 'https://api.twitter.com/1.1/statuses/user_timeline.json';
+        $this->param = '?screen_name=' . $this->user . '&count=' . $this->fetch;
+    }
+
 }

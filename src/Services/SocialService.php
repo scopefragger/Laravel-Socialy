@@ -15,16 +15,16 @@ namespace Scopefragger\LaravelSocialy\Services;
 class SocialService
 {
     /** @var $user - The user to collect the posts from */
-    private $user;
+    public $user;
 
     /** @var $fetch - Number of posts to fetch */
-    private $fetch = 5;
+    public $fetch = 5;
 
     /** @var $api - The instance of the Social Sites APIt */
-    private $api;
+    public $api;
 
     /** @vars $data - Data returned from API */
-    private $data;
+    public $data;
 
     /**
      * Wrapper for collecting new posts
