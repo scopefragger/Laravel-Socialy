@@ -1,0 +1,12 @@
+machine:
+   php:
+     version: 5.6
+dependencies:
+  post:
+    - wget https://phar.phpunit.de/phpunit-old.phar
+    - chmod +x phpunit-old.phar
+    - mv phpunit-old.phar phpunit
+test:
+  override:
+    - mkdir -p $CIRCLE_TEST_REPORTS/phpunit
+    - ./phpunit --log-junit $CIRCLE_TEST_REPORTS//junit.xml
