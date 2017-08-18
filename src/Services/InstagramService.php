@@ -7,19 +7,21 @@ use Scopefragger\LaravelSocialy\Services\Api\InstagramAPI;
 use Scopefragger\LaravelSocialy\Models\Social;
 
 /**
- * Class InstagramService
+ * Class InstagramService.
  *
  * @category Awesomeness
- * @package  Larave-Socialy
+ *
  * @author   Mark Jones <mark@kitkode.co.uk>
  * @license  MIT License
+ *
  * @version  1.0.1
- * @link     https://github.com/scopefragger/Laravel-Socialy
+ *
+ * @see     https://github.com/scopefragger/Laravel-Socialy
  */
 class InstagramService extends SocialService
 {
     /**
-     * Create new InstagramService object
+     * Create new InstagramService object.
      */
     public function __construct()
     {
@@ -28,9 +30,7 @@ class InstagramService extends SocialService
     }
 
     /**
-     * Creates OAuth Token handshake with Instagram
-     *
-     * @return void
+     * Creates OAuth Token handshake with Instagram.
      */
     public function authorise()
     {
@@ -39,7 +39,7 @@ class InstagramService extends SocialService
     }
 
     /**
-     * Fetches the Instagram posts
+     * Fetches the Instagram posts.
      *
      * Collects all of the most recent posts for the given
      * user,  using the API details provided.
@@ -55,15 +55,13 @@ class InstagramService extends SocialService
         }
     }
 
-
     /**
-     * cleans Instagram API Data
+     * cleans Instagram API Data.
      *
      * @return mixed
      */
     public function clean()
     {
-
     }
 
     public function process()
@@ -79,43 +77,43 @@ class InstagramService extends SocialService
 
     public function save($data)
     {
-
         if (!empty($data->id)) {
-
-            echo "Imported Instagram Post " . $data->id . "\n";
-
+            echo 'Imported Instagram Post '.$data->id."\n";
 
             /** Check if record exists else make one */
             $social = Social::firstOrCreate(['fkey' => $data->id]);
             $social->fkey = $data->id;
             $social->social_site = 'instagram';
 
-            /** Save Twitter Message */
+            /* Save Twitter Message */
             if (!empty($data->caption->text)) {
                 $social->message = $data->caption->text;
             }
 
-            /** Save there username `@JohnDoh` */
+            /* Save Instagram Image */
+            if (!empty($data->images->standard_resolution->url)) {
+                $social->image = $data->images->standard_resolution->url;
+            }
+
+            /* Save there username `@JohnDoh` */
             if (!empty($data->user->screen_name)) {
                 $social->user_handle = $data->user->screen_name;
             }
 
-            /** Save there full name `John Doh` */
+            /* Save there full name `John Doh` */
             if (!empty($data->user->name)) {
                 $social->user_formal_name = $data->user->name;
             }
 
-            /** save the url of there profile image */
+            /* save the url of there profile image */
             if (!empty($data->user->profile_image_url)) {
                 $social->user_avatar = $data->user->profile_image_url;
             }
 
             //@TODO SAVE MEDIA IMAGE
 
-            /** save the object */
+            /* save the object */
             $social->save();
-
-
         }
     }
 }

@@ -5,15 +5,12 @@ namespace Scopefragger\LaravelSocialy\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Scopefragger\LaravelSocialy\Migrations\CreateSocial;
 
 /**
- * Class Install
+ * Class Install.
  *
  * Installs the Tables needed,  as well as running
  * the basic FBFeed Fetch's
- *
- * @package E3Creative\FbFeed\Commands
  */
 class Install extends Command
 {
@@ -25,8 +22,6 @@ class Install extends Command
 
     /**
      * Create a new Install command instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -34,11 +29,9 @@ class Install extends Command
     }
 
     /**
-     * Installs migrations via command line
+     * Installs migrations via command line.
      *
      * Creates missing tables and populates them with basic data
-     *
-     * @return void
      */
     public function fire()
     {
@@ -46,7 +39,8 @@ class Install extends Command
             Schema::create('laravel_socialy', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('fkey')->nullable();
-                $table->string('social_site')->defa('custom');
+                $table->string('social_site')->defalt('custom');
+                $table->string('message')->nullable();
                 $table->string('message')->nullable();
                 $table->string('user_avatar')->nullable();
                 $table->string('user_handle')->nullable();
@@ -57,7 +51,5 @@ class Install extends Command
                 $table->timestamps();
             });
         }
-
     }
-
 }
